@@ -20,7 +20,14 @@ void PrintArray(int* arr)
 	}
 }
 
-void Zamina(int* arr, int* new_arr)
+void Zamina(int* arr)
+{
+	int temp = arr[0];
+	arr[0] = arr[4];
+	arr[4] = temp;
+}
+
+void DeleteElement(int* arr, int* new_arr)
 {
 	int index = arr[5];
 	int j = 0;
@@ -33,20 +40,52 @@ void Zamina(int* arr, int* new_arr)
 			j++;
 		}
 	}
+	new_arr += arr[SIZE-1];
 }
 
-int main()
+void Menu()
 {
 	int* arr = new int[SIZE];
 	int* new_arr = new int[SIZE - 1];
 	IntArray(arr);
-	PrintArray(arr);
-	cout << endl;
-	Zamina(arr, new_arr);
-	for (int i = 0; i < SIZE - 1; i++)
-	{
-		cout << new_arr[i] << ", ";
-	}
+	int num = 0;
+	do {
+		cout << "1. Виконати заміну елементів\n2. Виконати видалення елемента\n3. Виконати 1 та 2\n4. Вивести масив\n5. Вийти\n", cin >> num;
+		switch (num)
+		{
+		case(1):
+			Zamina(arr);
+			break;
+		case(2):
+			DeleteElement(arr, new_arr);
+			for (int i = 0; i < SIZE - 1; i++)
+			{
+				cout << new_arr[i] << ", ";
+			}
+			break;
+		case(3):
+			Zamina(arr);
+			DeleteElement(arr, new_arr);
+			break;
+		case(4):
+			PrintArray(arr);
+			cout << endl;
+			break;
+		case(5):
+			cout << "До побачення!" << endl;
+			break;
+		default:
+			cout << "Невiрний вибiр, спробуйте ще раз." << endl;
+			break;
+		}
+	} while (num != 5);
+
+}
+
+int main()
+{
+	setlocale(LC_ALL, "");
+	Menu();
 
 	return 0;
 
